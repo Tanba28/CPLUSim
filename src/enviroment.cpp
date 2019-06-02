@@ -1,11 +1,18 @@
-#define _USE_MATH_DEFINES
-
-#include <iostream>
-#include <Eigen/Core>
-#include <cmath>
-
 #include "enviroment.hpp"
-#include "coordinate.hpp"
+
+Enviroment::Enviroment(picojson::object json){
+    picojson::object envObj;
+    envObj = json["Launch Pad Enviroment"].get<picojson::object>();
+    velWind0 = envObj["Wind Velocity [m/s]"].get<double>();
+    dirWind0 = envObj["Wind Direction [deg]"].get<double>();
+    baseHeight = envObj["Wind Base Height [m]"].get<double>();
+    windPower = envObj["Coefficient of Wind Power"].get<double>();
+
+    azimuth0 = envObj["Launcher Azimuth [deg]"].get<double>();
+    elevation0 = envObj["Launcher Elevation [deg]"].get<double>();
+
+    railLength = envObj["Launcher Rail Length [m]"].get<double>();
+}
 
 Eigen::Vector3d Enviroment::windLaw(double height){
     Eigen::Vector3d velWind;
