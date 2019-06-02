@@ -4,31 +4,76 @@
 #define _USE_MATH_DEFINES
 
 #include <iostream>
+#include <fstream>
 #include <cmath>
 #include <string>
 #include <Eigen/Core>
 
-class RocketParameter{
-    public:        
-        double thrustTime = 4;
-        double thrust = 300;
+#include "picojson.h"
 
-        double length = 1.3;
-        double diameter = 0.089;
-        double area = 0.25*M_PI*diameter*diameter;
+class Rocket{
+    public:
+        Rocket(picojson::object json);
+        
+        double mass0;
 
-        double mass = 5.0;
+        // System
+        std::string thrustFileName;
+        std::string rocketName;
+        bool modelRocket;
 
-        double inertiaPitch = 0.6;
-        double inertiaRoll = 0.006;
+        // Mechanics
+        double length;
+        double diameter;
+        double area;
+        double structureMass;
+        double structureCG;
 
-        double lcg = 0.8;
-        double lcp = 0.95;
+        double inertiaPitch;
+        double inertiaRoll;
 
-        double cd = 0.5;
-        double cna = 8.0;
-        double clp = -0.07;
-        double cmq = -2.5;
+        // AeroDynamics
+        double lcp;
+        double clp;
+        double cmq;
+        double cd;
+        double cna;
+
+        //TODO:Recovery
+        
+        double deployTimePara1;
+        double decentVelPara1;
+        
+        bool parachute2;
+        double deployAltitudePara2;
+        double decentVelPara2;
+        
+
+        //TODO:HybridEngine
+        
+        double isp;
+        double oxidizerTankLength;
+        double oxidizerTankCG;
+        double oxidizerMass;
+        double oxidizerMassDot;
+        double fuelLength;
+        double fuelCG;
+        double fuelMassBefore;
+        double fuelMassAfter;
+        double fuelMassDot;
+        
+
+        //TODO:ModelRocketEngine
+        
+        double motorLength;
+        double motorDiameter;
+        double motorCG;
+        double motorMassBefore;
+        double motorMassAfter;
+        
+        double thrustTime;
+        //double thrust = 300;
+        Eigen::MatrixXd thrust;
 };
 
 #endif

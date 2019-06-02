@@ -1,42 +1,35 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <Eigen/Core>
 #include <boost/numeric/odeint.hpp>
 
-#include "rocket.hpp"
-#include "enviroment.hpp"
-#include "dynamics.hpp"
-#include "coordinate.hpp"
+#include "picojson.h"
+#include "solver.hpp"
 
-void observer(const Dynamics::state &x, const double t){
-    std::cout << t << "," << x(0) << "," << x(1) << "," << x(2) << "," << x(3) << "," << x(4) << "," << x(5) <<  std::endl;
-}
+int main(int argc, char *argv[]){
+    std::cout << "CPLUSim" << "Ver0.01" << std::endl;
 
-int main(){
-    RocketParameter rocket;
-    Enviroment env;
-    Dynamics dynamics(rocket,env);
+    if(argc < 2){
+        std::cerr << "failed" <<std::endl;
+        return 1;        
+    }
 
-    double phi,theta,psi;
-    phi = 0;
-    theta = deg2rad(env.elevation0);
-    psi = deg2rad(env.azimuth0);
+    std::ifstream fs;
 
-    Eigen::Vector3d euler = {phi,theta,psi};
-    Eigen::Vector4d quat;
-    Eigen::Matrix3d dcm;
-    dcm = Coordinate::convertEulerToDcm(euler);
-    quat = Coordinate::convertDcmToQuat(dcm);
+    fs.open(argv[1],std::ios::in);
+    if(fs.fail()){
+        std::cerr << "failed" <<std::endl;
+        return 1;
+    }
+    picojson::value val;
 
-    Eigen::Vector3d posEnu0 = {rocket.length - rocket.lcg,0,0};
-    posEnu0 = Coordinate::convertQuatToDcm(quat).transpose() * posEnu0;
+    fs >> val;
+    fs.close();
 
-    Dynamics::state state0;
-    state0 << posEnu0,0,0,0,0,0,0,quat;
+    Solver solver(val.get<picojson::object>());
 
-    boost::numeric::odeint::runge_kutta_dopri5<Dynamics::state,double,Dynamics::state,double,boost::numeric::odeint::vector_space_algebra> stepper;
-
-    boost::numeric::odeint::integrate_const(stepper,dynamics,state0,0.0,50.0,0.01,observer);
+    solver.launchSimulation();
                            
     return 0;
 }

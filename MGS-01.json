@@ -1,0 +1,70 @@
+{
+    "System" : {
+        "Thrust File Name" : "Thrust_K240_RaSK.csv",
+        "Name" : "MGS-01_3_4_1",
+        "ModelRocket" : false
+    },
+
+    "Launch Pad Enviroment" : {
+        "Launch Site" : "Oshima_Land",
+        "Wind Velocity [m/s]" : 2.5,
+        "Wind Direction [deg]" : 90,
+        "Wind Base Height [m]" : 2,
+        "Coefficient of Wind Power" : 6,
+        
+        "Launcher Azimuth [deg]" : 0,
+        "Launcher Elevation [deg]" : -88,
+        "Launcher Rail Length [m]" : 5
+    },
+
+    "Mechanics": {
+		"Length [m]": 1.8035,
+		"Diameter [m]": 0.114,
+        "Structure Mass [kg]": 5.8305,
+        "Structure CG From Nose [m]" : 0.991,
+        "Structure Inertia Moment(pitch/yaw) [kg*m^2]" : 1.267,
+        "Structure Inertia Moment(roll) [kg*m^2]" : 0.01331
+    },
+
+    "AeroDynamics" :{
+        "CP From Nose [m]" : 1.271,
+        "Coefficient of Damping Moment (Roll)" : -0.0771,
+        "Coefficient of Damping Moment (Pitch/Yaw)" : -2.59,
+        "Coefficient of Drag" : 0.48,
+        "Coefficient of Normal Force" : 7.34
+    },
+
+    "Recovery" :{
+        "1st Parachute Deploy Time [s]" : 0,
+        "Decent Speed of 1st Parachute[m/s]": 14.7,
+
+        "2nd Parachute Exist" : true,
+        "2nd Parachute Deploy Altitude [m]" : 200,
+        "Decent Speed of 2nd Parachute[m/s]": 9.28
+    },
+
+    "Hybrid Engine" :{
+        "Isp [s]" : 162.8,
+        "Oxidizer Tank Length [m]" : 0.511,
+        "Oxidizer Tank CG From Nose [m]" : 1.235,
+        "Oxidizer Mass [kg]" : 0.687,
+        "Oxidizer Mass Flow Rate [kg/s]" : 0.1026,
+        "Fuel Length [m]" : 0.265,
+        "Fuel CG From Nose [m]" : 1.67,
+        "Fuel Mass Before Combustion [kg]" : 0.3815,
+        "Fuel Mass After Combustion [kg]" : 0.2735,
+        "Fuel Mass Flow Rate [kg/s]" : 0.0153,
+        "Fuel Inside Diameter [m]" : 0.025,
+        "Fuel Outside Diameter [m]" : 0.048,
+        "Nozzle Outlet Diameter [m]" : 0.025
+    },
+
+    "ModelRocket Engine" :{
+        "Isp [s]" : 0,
+        "Motor Length [m]" : 0,
+        "Moter Diameter [m]" : 0,
+        "Motor CG From Nose [m]" : 0,
+        "Motor Mass Before Combustion [kg]" : 0,
+        "Motor Mass After Combustion [kg]" : 0
+    }
+}
